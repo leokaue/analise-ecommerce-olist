@@ -18,3 +18,17 @@ LIMIT 5;
 
 -- Conclusão: “SP concentra 42% dos pedidos, mais que o triplo vezes que o segundo colocado (RJ). --
 -- Os 3 maiores estados (SP, RJ e MG) somam cerca de 67% do total.”
+
+
+-- Pergunta 2: qual o faturamento total e o ticket médio por pedido?
+-- 1) Métrica: soma de valores e média por pedido
+-- 2) Tabela: order_items
+-- 3) Nível de detalhe: um resultado só
+-- 4) Filtro: nenhum (por enquanto, todos os status)
+-- 5) Agrupar/ordenar: não precisa
+
+SELECT SUM(price) AS faturamento_total,
+       SUM(price) / COUNT(DISTINCT order_id) AS ticket_medio
+FROM order_items;
+
+-- O marketplace faturou cerca de R$ 13,6 milhões, com ticket médio de R$ 138 por pedido.”
