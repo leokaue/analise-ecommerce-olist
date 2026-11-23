@@ -32,3 +32,24 @@ SELECT SUM(price) AS faturamento_total,
 FROM order_items;
 
 -- O marketplace faturou cerca de R$ 13,6 milhões, com ticket médio de R$ 138 por pedido.”
+
+-- ============================================
+-- PERGUNTA 3: Qual o faturamento por mês?
+-- ============================================
+-- 1) Métrica: soma do valor dos itens (price)
+-- 2) Tabelas: orders (data) + order_items (valor), ligadas por order_id
+-- 3) Nível de detalhe: um resultado por mês
+-- 4) Filtro: nenhum (considera todos os status)
+-- 5) Agrupar por mês, ordenar do mais antigo para o mais recente
+
+SELECT DATE_FORMAT(o.order_purchase_timestamp, '%Y-%m') AS mes,
+       SUM(oi.price) AS faturamento
+FROM orders AS o
+JOIN order_items AS oi
+  ON o.order_id = oi.order_id
+GROUP BY mes
+ORDER BY mes;
+
+-- Conclusão: o maior faturamento mensal foi em novembro de 2017 (R$ 1,01 milhão),
+-- mês da Black Friday. Em 2018 as vendas se mantiveram perto de R$ 1 milhão
+-- por mês, indicando crescimento sustentado.
